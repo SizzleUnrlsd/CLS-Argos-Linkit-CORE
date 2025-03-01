@@ -134,7 +134,7 @@
 #define BMA400_ENABLE                             UINT8_C(1)
 
 /* Data/sensortime selection macros */
-#define BMA400_DATA_ONLY                          UINT8_C(0x00)
+#define BMA400_DATA_ONLY                          UINT8_C(0x00)  
 #define BMA400_DATA_SENSOR_TIME                   UINT8_C(0x01)
 
 /* ODR configurations  */

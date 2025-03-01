@@ -41,6 +41,7 @@
 #include "ezo_rtd.hpp"
 #include "cdt.hpp"
 #include "bmx160.hpp"
+#include "bma400.hpp"
 #include "ms58xx.hpp"
 #include "bar100.hpp"
 #include "fs_log.hpp"
@@ -220,7 +221,6 @@ extern "C" int _write(int file, char *ptr, int len)
 	}
 	return len;
 }
-
 
 int main()
 {
@@ -591,12 +591,19 @@ int main()
 		DEBUG_TRACE("EZO RTD: not detected [%04X]", e);
 	}
 
-	DEBUG_TRACE("BMX160...");
+	// DEBUG_TRACE("BMX160...");
+	// try {
+	// 	static BMX160 bmx160;
+	// 	static AXLSensorService axl_sensor_service(bmx160, &axl_sensor_log);
+	// } catch (...) {
+	// 	DEBUG_TRACE("BMX160: not detected");
+	// }
+	DEBUG_TRACE("BMA400...");
 	try {
-		static BMX160 bmx160;
-		static AXLSensorService axl_sensor_service(bmx160, &axl_sensor_log);
+		static BMA400 bma400;
+		static AXLSensorService axl_sensor_service(bma400, &axl_sensor_log);
 	} catch (...) {
-		DEBUG_TRACE("BMX160: not detected");
+		DEBUG_TRACE("BMA400: not detected");
 	}
 
 	DEBUG_TRACE("Memory monitor...");
@@ -617,7 +624,9 @@ int main()
 	while (true)
 	{
 		try {
+			// DEBUG_TRACE("system_scheduler->run()");
 			system_scheduler->run();
+			// DEBUG_TRACE("PMU::run()");
 			PMU::run();
 		} catch (ErrorCode e) {
 			ErrorEvent event;

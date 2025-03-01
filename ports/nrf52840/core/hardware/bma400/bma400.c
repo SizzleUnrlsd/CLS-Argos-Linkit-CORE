@@ -1454,6 +1454,7 @@ int8_t bma400_perform_self_test(struct bma400_dev *dev)
             rslt = positive_excited_accel(&accel_pos, dev);
             if (rslt == BMA400_OK)
             {
+                // accel_pos.x,
                 rslt = negative_excited_accel(&accel_neg, dev);
                 if (rslt == BMA400_OK)
                 {
@@ -3454,7 +3455,7 @@ static int8_t validate_accel_self_test(const struct bma400_sensor_data *accel_po
     accel_data_diff.y = (accel_pos->y - accel_neg->y);
 
     /* accel z difference value */
-    accel_data_diff.z = (accel_pos->z - accel_neg->z);
+    accel_data_diff.z = (accel_pos->z - accel_neg->z); 
 
     /* Validate the results of self test */
     if (((accel_data_diff.x) > BMA400_ST_ACC_X_AXIS_SIGNAL_DIFF) &&
